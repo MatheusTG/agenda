@@ -9,7 +9,7 @@ class ContactForm(forms.ModelForm):
     widget=forms.TextInput(
       attrs={
         'class': 'classe-a classe-b',
-        'placeholder': 'Veio do init',
+        'placeholder': 'Escreva aqui',
       },
     ),
     label="Primeiro None",
@@ -19,10 +19,10 @@ class ContactForm(forms.ModelForm):
   def __init__(self, *args, **kwargs):
     super().__init__(*args, **kwargs)
 
-    self.fields['first_name'].widget.attrs.update({
-      'class': 'classe-a classe-b',
-      'placeholder': 'Veio do init',
-    })
+    # self.fields['first_name'].widget.attrs.update({
+    #   'class': 'classe-a classe-b',
+    #   'placeholder': 'Veio do init',
+    # })
 
   class Meta:
     model =  Contact
@@ -40,21 +40,29 @@ class ContactForm(forms.ModelForm):
     #   )
     # }
   
-  # def clean(self):
-  #   cleaned_data = self.cleaned_data
+  def clean(self):
+    # cleaned_data = self.cleaned_data
     
-  #   self.add_error(
-  #     'first_name',
-  #     ValidationError(
-  #       'Mensagem de erro',
-  #       code='invalid'
-  #     )
-  #   )
-  #   self.add_error(
-  #     None,
-  #     ValidationError(
-  #       'Mensagem de erro 2',
-  #       code='invalid'
-  #     )
-  #   )
-  #   return super().clean()
+    # self.add_error(
+    #   None,
+    #   ValidationError(
+    #     'Mensagem de erro 2',
+    #     code='invalid'
+    #   )
+    # )
+
+    return super().clean()
+  
+  def clean_first_name(self):
+    first_name = self.cleaned_data.get('first_name')
+
+    if first_name == 'ABC':
+      self.add_error(
+        'first_name',
+        ValidationError(
+          'Veio do add_error',
+          code='invalid'
+        )
+      )
+
+    return first_name
