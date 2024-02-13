@@ -30,6 +30,9 @@ class ContactForm(forms.ModelForm):
       'first_name',
       'last_name',
       'phone',
+      'email',
+      'description',
+      'category',
     )
     # widgets = {
     #   'first_name': forms.TextInput(
@@ -39,7 +42,7 @@ class ContactForm(forms.ModelForm):
     #     }
     #   )
     # }
-  
+
   def clean(self):
     # cleaned_data = self.cleaned_data
     
