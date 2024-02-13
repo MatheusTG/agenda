@@ -5,24 +5,13 @@ from contact.models import Contact
 
 
 class ContactForm(forms.ModelForm):
-  first_name = forms.CharField(
-    widget=forms.TextInput(
+  picture = forms.ImageField(
+    widget=forms.FileInput(
       attrs={
-        'class': 'classe-a classe-b',
-        'placeholder': 'Escreva aqui',
-      },
-    ),
-    label="Primeiro None",
-    help_text="Texto de ajuda para seu unuário"
+        'accept': 'image/*'
+      }
+    )
   )
-
-  def __init__(self, *args, **kwargs):
-    super().__init__(*args, **kwargs)
-
-    # self.fields['first_name'].widget.attrs.update({
-    #   'class': 'classe-a classe-b',
-    #   'placeholder': 'Veio do init',
-    # })
 
   class Meta:
     model =  Contact
@@ -33,15 +22,8 @@ class ContactForm(forms.ModelForm):
       'email',
       'description',
       'category',
+      'picture',
     )
-    # widgets = {
-    #   'first_name': forms.TextInput(
-    #     attrs={
-    #       'class': 'classe-a classe-b',
-    #       'placeholder': 'Escreva aqui',
-    #     }
-    #   )
-    # }
 
   def clean(self):
     # cleaned_data = self.cleaned_data
